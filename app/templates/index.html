@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
+<div class="col-md-8 offset-md-2">
+  <div class="row">
+    {% for post in all_Post %}
+    <h1>{{post.get_all_category}}</h1>
+    <div class="col-sm-6">
+    <div class="card " style="width: 10 rem;">
+      <div class="card-header"><h4><a  href="{% url 'details' post.pk%}">{{ post.title }}</a></h4></div>
+      <div class="card-body">
+
+    <small>
+
+        {{ post.created_on.date }} |&nbsp;
+
+        Categories:&nbsp;
+
+        {% for category in post.categories.all %}
+
+        <a href="{% url 'category' category.name %}">
+
+            {{ category.name }}
+
+        </a>&nbsp;
+
+        {% endfor %}
+
+    </small>
+
+    <p>{{ post.body | slice:":400" }}...</p>
+    <small> Posted by - {{post.created_by.username}}</small>
+  </div>
+    </div>
+    <br>
+  </div>
+
+    {% endfor %}
+</div>
+</div>
+
+{% endblock %}

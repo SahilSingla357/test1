@@ -1,0 +1,10 @@
+{% block title %}{% endblock %}
+
+{% block content %}
+  <h2>Enter Post</h2>
+  <form action="{% url 'enter-post' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">enter post</button>
+  </form>
+{% endblock %}

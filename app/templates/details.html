@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
+<div class="col-md-8 offset-md-2">
+
+    <h1>{{ post.title }}</h1>
+
+    <small>
+
+        {{ post.created_on.date }} |&nbsp;
+
+        Categories:&nbsp;
+
+        {% for category in post.categories.all %}
+
+        <a href="{% url 'category' category.name %}">
+
+            {{ category.name }}
+
+        </a>&nbsp;
+
+        {% endfor %}
+
+    </small>
+
+    <p>{{ post.body | linebreaks }}</p>
+
+    <h3>Leave a comment:</h3>
+
+    <form action="{% url 'details' post.pk%}" method="post">
+
+        {% csrf_token %}
+
+        {{form1.as_p}}
+        <button type="submit" class="btn btn-primary" name="htmlsubmitbutton1">Submit</button>
+
+    </form>
+
+    <h3>Comments:</h3>
+
+    {% for comment in comments %}
+
+    <p>
+
+        On {{comment.created_on.date }}&nbsp;
+
+        <b>{{ comment.author }}</b> wrote:
+
+    </p>
+
+    <p>{{ comment.body }}</p>
+
+    <!-- <h5><u>Reply on the comment</u></h5>
+    {% for reply in replies %}
+    <p>
+     {% if reply.comment == comment %}
+        <b>{{reply.viewer}} &nbsp;</b> replies
+        <b>{{reply.reply}} &nbsp;</b>
+     {% endif %}
+    </p>
+    {% endfor %} 
+    <form action="{% url 'details' post.pk%}" method="post">
+        {% csrf_token %} 
+        {{form2.as_p}}
+        <input type='hidden' id='commentId' value=comment.id name='commentId'>
+        <button type="submit" class="btn btn-primary" name=comment.id > Reply </button>
+    </form> -->
+    <hr>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

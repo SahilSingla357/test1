@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
+<div class="col-md-8 offset-md-2">
+    <h1><span class="badge badge-pill badge-info align-self-center">{{ category | title }}</span></h1>
+
+
+    {% for post in posts %}
+
+        <h2><a href="{% url 'details' post.pk%}">{{ post.title }}</a></h2>
+
+        <small>
+
+            {{ post.created_on.date }} |&nbsp;
+
+            Categories:&nbsp;
+
+            {% for category in post.categories.all %}
+
+            <a href="{% url 'category' category.name %}">
+
+                {{ category.name }}
+
+            </a>&nbsp;
+
+            {% endfor %}
+
+        </small>
+
+        <p>{{ post.body | slice:":400" }}...</p>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
